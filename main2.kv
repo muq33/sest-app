@@ -1,0 +1,329 @@
+<register>:
+    id: register
+    name: "register"
+    md_bg_color:239/255,243/255,246/255,1
+	MDBoxLayout:
+        orientation:'vertical'
+        padding:dp(10)
+        spacing:dp(25)
+        MDBoxLayout:
+            orientation:'vertical'
+            size_hint_y:.3
+            MDLabel:
+                text:"Cadastro"
+                font_style:'H5'
+		MDBoxLayout:
+            orientation:'vertical'
+            size_hint_y:5
+			spacing:dp(15)
+			NCard:
+				MDBoxLayout:
+					padding:[dp(15),sp(5),dp(15),sp(5)]
+					md_bg_color:239/255,243/255,246/255,1
+					radius:[20]
+					MDTextField:
+						hint_text: "CPF"
+						id:reg_cpf
+						max_text_length: 11
+			NCard:
+				MDBoxLayout:
+					padding:[dp(15),sp(5),dp(15),sp(5)]
+					md_bg_color:239/255,243/255,246/255,1
+					radius:[20]
+					MDTextField:
+						hint_text:"Nome"
+						id:reg_name
+			NCard:
+				MDBoxLayout:
+					padding:[dp(15),sp(5),dp(15),sp(5)]
+					md_bg_color:239/255,243/255,246/255,1
+					radius:[20]
+					MDTextField:
+						hint_text: "CEP"
+						id:reg_cep
+						max_text_length: 8
+			NCard:
+				MDBoxLayout:
+					padding:[dp(15),sp(5),dp(15),sp(5)]
+					md_bg_color:239/255,243/255,246/255,1
+					radius:[20]
+					MDTextField:
+						hint_text:"Usuário"
+						id:reg_user
+						max_text_length: 15
+			NCard:
+				MDBoxLayout:
+					padding:[dp(15),sp(5),dp(15),sp(5)]
+					md_bg_color:239/255,243/255,246/255,1
+					radius:[20]
+					MDTextField:
+						hint_text:"Email"
+						id:reg_mail
+			NCard:
+				MDBoxLayout:
+					padding:[dp(15),sp(5),dp(15),sp(5)]
+					md_bg_color:239/255,243/255,246/255,1
+					radius:[20]
+					MDTextField:
+						hint_text:"Senha"
+						id:reg_pass
+						password:True
+						max_text_length: 15
+		MDBoxLayout:
+			orientation:'vertical'
+			spacing:dp(10)
+			size_hint_y:.6
+			MDRaisedButton:
+				md_bg_color:app.theme_cls.primary_color
+				text: "Registrar"
+				halign: 'center'
+				pos_hint: {"center_x": 0.5}
+				on_release: app.register_user()
+		MDBoxLayout:
+			pos_hint:{'center_x':.5}
+			adaptive_width:True
+			spacing:dp(6)
+			MDLabel:
+				text:"Já possui uma conta?"
+				text_size:None,None
+				halign:"center"
+				adaptive_size:True
+			MDTextButton:
+				text:"Entrar"
+				theme_text_color:'Custom'
+				text_color:app.theme_cls.primary_color
+				on_release: app.switch_screen("login", transition = "right")
+<login>:
+    id: login
+    name: "login"
+    MDBoxLayout:
+        orientation:'vertical'
+        MDBoxLayout:
+            orientation:'vertical'
+            padding:dp(20)
+            spacing:dp(15)
+            MDBoxLayout:
+                orientation:'vertical'
+                size_hint_y:.6
+                MDLabel:
+                    text:"Login"
+                    font_style:'H4'
+
+            MDBoxLayout:
+                orientation:'vertical'
+                size_hint_y:1.5
+                MDLabel:
+                    text:"Usuário"
+                NCard:
+                    MDBoxLayout:
+                        padding:[dp(15),sp(5),dp(15),sp(5)]
+                        md_bg_color:239/255,243/255,246/255,1
+                        radius:[20]
+                        MDTextField:
+                            id:user
+                MDLabel:
+                    text:"Senha"
+                NCard:
+                    MDBoxLayout:
+                        padding:[dp(15),sp(5),dp(15),sp(5)]
+                        md_bg_color:239/255,243/255,246/255,1
+                        radius:[20]
+                        MDTextField:
+                            id:password
+							password:True
+            MDBoxLayout:
+                orientation:'vertical'
+                spacing:dp(10)
+                size_hint_y:1.1
+                MDRaisedButton:
+                    md_bg_color:app.theme_cls.primary_color
+                    text: "Entrar"
+                    halign: 'center'
+                    pos_hint: {"center_x": 0.5}
+                    on_release: app.login()
+
+                MDBoxLayout:
+                    pos_hint:{'center_x':.5}
+                    adaptive_width:True
+                    spacing:dp(6)
+                    MDLabel:
+                        text:"Não possui conta?"
+                        text_size:None,None
+                        halign:"center"
+                        adaptive_size:True
+                    MDTextButton:
+                        text:"Registrar-se"
+                        theme_text_color:'Custom'
+                        text_color:app.theme_cls.primary_color
+                        on_release:
+                            app.switch_screen("register")
+
+<menu>:
+    id: menu
+    name: "menu"
+    MDBoxLayout:
+        orientation:'vertical'
+        MDBoxLayout:
+            size_hint_y:.25
+            padding:dp(25)
+            MDBoxLayout:
+                orientation:"vertical"
+                MDLabel:
+                    text:"Menu"
+                    font_style:"H4"
+        MDGridLayout:
+            size_hint_y:.75
+            cols:2
+            padding:[dp(15),dp(15),dp(15),dp(35)]
+            spacing:dp(15)
+            ElementCard:
+                image:"images/pay.png"
+                text:"Tela 1"
+                on_release: app.switch_screen("consignado", transition = "right")
+            ElementCard:
+                image:"images/money.png"
+                text:"Tela 2"
+				on_release: app.switch_screen("salario", transition = "right"), app.salary_graph((1))
+
+            ElementCard:
+                image:"images/logout.png"
+                text:"Sair"
+                on_release: app.switch_screen("login", transition = "right")
+                
+            ElementCard:
+                image:"images/settings.png"
+                text:"Configurações"
+				on_release: app.change_label("configuracoes", ("cpf","nome","user","email")), app.switch_screen("configuracoes", transition = "right")
+
+
+<configuracoes>:
+	id: configuracoes
+	name: "configuracoes"
+	MDBoxLayout:
+		orientation:'vertical'
+        padding:dp(5)
+        spacing:dp(5)
+		MDBoxLayout:
+			orientation: 'vertical'
+			size_hint_y: .2
+			MDLabel:
+				text:"Configurações"
+				font_style:'H4'
+		MDGridLayout:
+			cols: 2
+			rows: 1
+			size_hint_y: .70
+			pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+			MDBoxLayout:
+				MDIcon:
+					icon: 'account'
+					icon_color: 0, 0, 0, 0
+					halign: 'center'
+					font_size: dp(200)
+			MDBoxLayout:
+				padding: dp(5)
+				spacing: dp(5)
+				orientation: 'vertical'
+				MDLabel:
+					text: "CPF"
+				NCard:
+                    MDBoxLayout:
+                        padding:[dp(15),sp(5),dp(15),sp(5)]
+                        md_bg_color:239/255,243/255,246/255,1
+                        radius:[20]
+                        MDLabel:
+                            id:cpf
+							text: "abcd"
+				MDLabel:
+					text: "Nome"
+				NCard:
+                    MDBoxLayout:
+                        padding:[dp(15),sp(5),dp(15),sp(5)]
+                        md_bg_color:239/255,243/255,246/255,1
+                        radius:[20]
+						MDLabel:
+							id: nome
+							text:
+				MDLabel:
+					text: "CEP"
+				NCard:
+                    MDBoxLayout:
+                        padding:[dp(15),sp(5),dp(15),sp(5)]
+                        md_bg_color:239/255,243/255,246/255,1
+                        radius:[20]
+						MDLabel:
+							id:cep
+							text:
+				MDLabel:
+					text: "Usuário"
+				NCard:
+                    MDBoxLayout:
+                        padding:[dp(15),sp(5),dp(15),sp(5)]
+                        md_bg_color:239/255,243/255,246/255,1
+                        radius:[20]
+						MDLabel:
+							id: usuario
+							text:
+
+				MDLabel:
+					text: "Email"
+				NCard:
+                    MDBoxLayout:
+                        padding:[dp(15),sp(5),dp(15),sp(5)]
+                        md_bg_color:239/255,243/255,246/255,1
+                        radius:[20]
+						MDLabel:
+							id:email
+							text:
+		MDBoxLayout:
+			orientation: 'vertical'
+			size_hint_y: 0.2
+			MDRaisedButton:
+				md_bg_color:app.theme_cls.primary_color
+				text: "Alterar dados"
+				halign: 'center'
+				pos_hint: {"center_x": 0.5}
+				on_release: app.switch_screen("configuracoes_alter", transition = "right")
+<configuracoes_alter>:
+	id: configuracoes_alter
+	name: "configuracoes_alter"
+		
+<ElementCard@MDCard>:
+    md_bg_color:77/255,166/255,255/255,1
+    padding:dp(15)
+    spacing:dp(15)
+    radius:dp(25)
+    ripple_behavior: True
+    image:''
+    text:""
+    items_count:""
+    subtext:''
+    on_release:
+    orientation:'vertical'
+    Image:
+        source:root.image
+    MDBoxLayout:
+        orientation:'vertical'
+        MDLabel:
+            halign:"center"
+            text:root.text
+            font_style:"H6"
+        MDLabel:
+            halign:"center"
+            font_style:"Caption"
+            text:root.subtext
+
+<NCard@MDBoxLayout>:
+    canvas.before:
+        Color:
+            rgba:(0,0,0,.1)
+        RoundedRectangle:
+            size:self.size
+            pos:self.pos[0]+6,self.pos[1]-4
+            radius:[20]
+        Color:
+            rgba:1, 1, 1, 0.8
+        RoundedRectangle:
+            size:self.size
+            pos:self.pos[0]-6,self.pos[1]+4
+            radius:[20]
