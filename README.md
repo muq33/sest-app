@@ -9,7 +9,7 @@ Um aplicativo desenvolvido inteiramente em python, que busca dar vida a um aplic
 
 - Terminar de implementar a biblioteca de autenticação de registro do usuário, a fim de garantir mais segurança.
 
--
+- Adicionar novas funcionalidades
 
 
 
