@@ -9,20 +9,19 @@ class psql():
     
     def connect_db(self):
         try:
-            con = psycopg2.connect(host = self.host,database = self.database,
+            con = psycopg2.connect(dbname = self.database,
                                user = self.username,password = self.password)
             con.autocommit = True
             return con
     
         except:
             return None
-    def insert_db(self,relation, attributes, values):
+    def insert_db(self,schema, table, attributes, values):
         connection = self.connect_db()
         cursor = connection.cursor()
         try:
-            cursor.execute(f'INSERT INTO {relation} {attributes} VALUES {values}')
+            cursor.execute(f'INSERT INTO {schema}.{table} {attributes} VALUES {values}')
             cursor.close()
-            
         except:
             return None
         
@@ -45,8 +44,8 @@ class psql():
             cursor.execute(query_string)
             fetch = cursor.fetchall()
             colnames = [desc[0] for desc in cursor.description]
-        except:
-            return None
+        except Exception as error:
+            return error
         finally:
             connection.close()
             cursor.close()

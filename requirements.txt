@@ -1,5 +1,5 @@
 Kivy==2.1.0
 kivymd==0.104.2
-numpy==1.23.1
+numpy==1.21.6
 psycopg2==2.9.3
 pycep_correios==5.0.0

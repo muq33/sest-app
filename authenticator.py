@@ -23,16 +23,16 @@ def validate_cpf(sequence):
     cpf = [int(char) for char in sequence if char.isdigit()]
 
     if len(cpf) != 11:
-        return False
+        return 'CPF'
 
     if cpf == cpf[::-1]:
-        return False
+        return 'CPF'
     
     for i in range(9, 11):
         value = sum((cpf[num] * ((i+1) - num) for num in range(0, i)))
         digit = ((value * 10) % 11) % 10
         if digit != cpf[i]:
-            return False
+            return 'CPF'
 
     return True
 
@@ -41,18 +41,19 @@ def validate_cep(cep):
         address = get_address_from_cep(f'{cep}', webservice=WebService.APICEP)
         return True
     except:
-        return False
+        return 'CEP'
     
 def validate_name(name):
     check = any(char.isdigit() for char in name)
-    return False if check == True else True
+    return 'Nome' if check == True else True
 
 def validate_email(email):
     regex = '^[a-zA-Z0-9-_]+@[a-zA-Z0-9]+\.[a-z]{1,3}$'
     if re.match(regex,email):
         return True
-    return False
-
+    return 'Email'
+# def validate_user(user):
+    
 def validate_fields(screen, functions: tuple):
     validate_matrix = functions
     validated_matrix = []
